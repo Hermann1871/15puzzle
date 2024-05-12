@@ -15,7 +15,7 @@ const whiteNumbers = [1, 3, 6, 8, 9, 11, 14]
 
 const Game = () => {
 
-    console.log('Game Rendering')
+    // console.log('Game Rendering')
 
     const [winState, setWinState] = useState(false)
 
@@ -29,7 +29,7 @@ const Game = () => {
 
     function swap(r: number, c: number) {
         const copy = NumbersState.map(subarray => [...subarray]);
-        console.log ('Move', copy[r][c])
+        // console.log ('Move', copy[r][c])
 
         if (c - 1 >= 0 && getNumberToDisplay(r, c - 1) === 0) {
             copy[r][c - 1] = copy[r][c]
@@ -128,7 +128,7 @@ const Game = () => {
                 </View>
             </Pressable>
 
-            {winState && <Text style={{ fontSize: 48, fontWeight: 'bold', color: 'green' }}>Hai vinto</Text>}
+            {winState && <Text style={{ fontSize: 36, fontWeight: 'bold', color: 'green' }}>Hai vinto</Text>}
             <Text>{moves} moves</Text>
 
             <Pressable >
