@@ -1,14 +1,16 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet, FlatList, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Button, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types';
 import { getUserList } from '../services/Users';
 
 import { type UserAPIResponse, type User } from '../models/results';
 import useUserList from '../hooks/useUserList';
+import { useNavigation } from '@react-navigation/native';
+import UserDetail from './UserDetails';
 
 
-// type APIListNavigationProp = StackNavigationProp<RootStackParamList, 'APIList'>;
+type APIListNavigationProp = StackNavigationProp<RootStackParamList, 'APIList'>;
 
 // type APIListProps = {
 //   navigation: APIListNavigationProp;
@@ -18,7 +20,8 @@ import useUserList from '../hooks/useUserList';
 const APIList = () => {
 
     const { page, list, setNextPage, setPrevPage } = useUserList();
-
+    const navigation = useNavigation<APIListNavigationProp>(); // Specifica il tipo di navigazione
+    const [selectedUser, setSelectedUser] = useState<User>();
 
     // const fetchData = async () => {
     //     try {
@@ -34,32 +37,31 @@ const APIList = () => {
 
     return (
         <View style={styles.container}>
+
             <Text>API COMPONENT</Text>
+
             <View style={styles.buttonContainer}>
                 <Button title="⬅" onPress={() => setPrevPage()} />
-                <Button title={page.toString()} onPress={() => setPrevPage()} />
-                {/* <Text>{page}</Text> */}
+                <Button title={page.toString()} />
                 <Button title="➡" onPress={() => setNextPage()} />
             </View>
-            {/* <FlatList
-                data={list}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <View style={styles.listItem}>
-                        <Text style={styles.text}>{item.name}</Text>
-                    </View>
-                )}
-            /> */}
+
             <FlatList
                 data={list}
                 keyExtractor={(item) => item.id.value ?? item.login.uuid} // Assuming each user has a unique id field.
                 renderItem={({ item }) => (
                     <View style={styles.listItem}>
-                        <Image source={{ uri: item.picture.thumbnail }} style={styles.image} />
-                        <Text style={styles.text}>{item.name.first} {item.name.last}</Text>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate("UserDetails", { user: item })}
+                        >
+                            <Image source={{ uri: item.picture.thumbnail }} style={styles.image} />
+                            <Text style={styles.text} onPress={() => setSelectedUser(item)}>{item.name.first} {item.name.last}</Text>
+                        </TouchableOpacity>
+
                     </View>
                 )}
             />
+            {selectedUser && <UserDetail user={selectedUser} />}
         </View >
     );
 }

@@ -7,6 +7,7 @@ import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/
 import { RootStackParamList } from './types';
 import HomeScreen from './screens/HomeScreen';
 import APIListScreen from './screens/APIListScreen';
+import { UserDetailsScreen } from './screens/UserDetailsScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -57,11 +58,11 @@ export default function App() {
           component={APIListScreen}
           options={{ title: 'Lista API' }}
         />
-        {/* <Stack.Screen
-          name="PokemonDetails"
-          component={PokemonDetailsScreen}
-          options={({ route }) => ({ title: route.params.id.toString() })}
-        /> */}
+        <Stack.Screen
+          name="UserDetails"
+          component={UserDetailsScreen}
+          options={({ route }) => ({ title: route.params.user.name.first + " " + route.params.user.name.last })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
