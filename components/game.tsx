@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Pressable, View, StyleSheet, Text } from 'react-native';
+import Stopwatch from './stopwatch';
+import StopwatchMobile from './stopwatchMobile';
+import StopwatchMobile2 from './stopwatchMobile2';
 
 const matrix = [
     [1, 2, 3, 4],
@@ -8,10 +11,17 @@ const matrix = [
     [13, 14, 15, 0],
 ]
 
+// Donald Knuth 37 moves
+// const matrix = [
+//     [1, 12, 3, 8],
+//     [6, 9, 14, 11],
+//     [13, 2, 7, 4],
+//     [0, 5, 10, 15],
+// ]
+
 const a = [0, 1, 2, 3]
 
 const whiteNumbers = [1, 3, 6, 8, 9, 11, 14]
-
 
 const Game = () => {
 
@@ -22,9 +32,14 @@ const Game = () => {
     const [moves, setMoves] = useState(0)
 
     const [NumbersState, setNumbersState] = useState(matrix);
-
     const getNumberToDisplay = (r: number, c: number) => {
         return NumbersState[r][c]
+    };
+
+    const [stopwatchRunning, setStopwatchRunning] = useState(false);
+
+    const handleStartStopClick = () => {
+        setStopwatchRunning(!stopwatchRunning);
     };
 
     function swap(r: number, c: number) {
@@ -67,16 +82,20 @@ const Game = () => {
                 }
             }
         }
+
         if (check) {
             console.log('hai vinto ')
             setWinState(true)
+            handleStartStopClick()
         }
         // console.log('matrix - END')
     }
 
     function swap2() {
+
         setWinState(false)
         setMoves(0)
+        handleStartStopClick()
 
         const copy = NumbersState.map(subarray => [...subarray]);
         // console.log('copy inizio ')
@@ -118,7 +137,7 @@ const Game = () => {
     return (
         <>
             <Text style={{ fontSize: 48, fontWeight: 'bold' }}>15 Puzzle</Text>
-            
+
             {/* <h1 style={{ fontSize: 48, fontWeight: 'bold' }}>15 Puzzle</h1> */}
             {/* <p>{moves} moves</p> */}
 
@@ -130,6 +149,12 @@ const Game = () => {
 
             {winState && <Text style={{ fontSize: 36, fontWeight: 'bold', color: 'green' }}>Hai vinto</Text>}
             <Text>{moves} moves</Text>
+
+            <StopwatchMobile2 isRunning={stopwatchRunning} startAndStop={handleStartStopClick} />
+
+            <Pressable onPress={handleStartStopClick}>
+                <Text>START&STOP</Text>
+            </Pressable>
 
             <Pressable >
                 <View style={styles.container}>

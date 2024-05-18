@@ -1,0 +1,33 @@
+/* https://gist.github.com/Manntrix/c52e88689d09305f7eae121b4657f4b1 */
+
+body {
+    background-color: #000;
+}
+
+.stopwatch-time {
+    text-align: center;
+    /* color: #fff; */
+    color: black;
+    font-size: 80px;
+}
+
+.stopwatch-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.stopwatch-buttons button {
+    margin: 20px;
+    border: none;
+    padding: 10px 30px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.stopwatch-buttons button:first-child {
+    background-color: green;
+}
+
+.stopwatch-buttons button:last-child {
+    background-color: red;
+}
