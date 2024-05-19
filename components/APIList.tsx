@@ -35,6 +35,10 @@ const APIList = () => {
     // };
     // fetchData();
 
+    const handleCloseDetail = () => {
+        setSelectedUser(undefined);
+    };
+
     return (
         <View style={styles.container}>
 
@@ -51,13 +55,12 @@ const APIList = () => {
                 keyExtractor={(item) => item.id.value ?? item.login.uuid} // Assuming each user has a unique id field.
                 renderItem={({ item }) => (
                     <View style={styles.listItem}>
-                        <TouchableOpacity
+                        <TouchableOpacity style={styles.contactContainer}
                             onPress={() => navigation.navigate("UserDetails", { user: item })}
                         >
                             <Image source={{ uri: item.picture.thumbnail }} style={styles.image} />
                             <Text style={styles.text} onPress={() => setSelectedUser(item)}>{item.name.first} {item.name.last}</Text>
                         </TouchableOpacity>
-
                     </View>
                 )}
             />
@@ -67,6 +70,12 @@ const APIList = () => {
 }
 
 const styles = StyleSheet.create({
+
+    contactContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
     container: {
         flex: 1,
         justifyContent: 'center',

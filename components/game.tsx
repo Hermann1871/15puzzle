@@ -3,6 +3,7 @@ import { Pressable, View, StyleSheet, Text } from 'react-native';
 import Stopwatch from './stopwatch';
 import StopwatchMobile from './stopwatchMobile';
 import StopwatchMobile2 from './stopwatchMobile2';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const matrix = [
     [1, 2, 3, 4],
@@ -136,27 +137,35 @@ const Game = () => {
 
     return (
         <>
-            <Text style={{ fontSize: 48, fontWeight: 'bold' }}>15 Puzzle</Text>
+            {/* <View style={styles.heading}></View> */}
 
-            {/* <h1 style={{ fontSize: 48, fontWeight: 'bold' }}>15 Puzzle</h1> */}
-            {/* <p>{moves} moves</p> */}
+            <ScrollView contentContainerStyle={styles.container1}>
+            {/* <View style={styles.container1}> */}
 
-            <Pressable onPress={() => swap2()}>
-                <View style={styles.shuffleButton}>
-                    <Text style={styles.shuffleButtonText}>New Game</Text>
-                </View>
-            </Pressable>
+                <Text style={{ fontSize: 48, fontWeight: 'bold' }}>15 Puzzle</Text>
+                <Text style={{ fontSize: 48, fontWeight: 'bold' }}>15 Puzzle</Text>
+                <Text style={{ fontSize: 48, fontWeight: 'bold' }}>15 Puzzle</Text>
 
-            {winState && <Text style={{ fontSize: 36, fontWeight: 'bold', color: 'green' }}>Hai vinto</Text>}
-            <Text>{moves} moves</Text>
+                {/* <h1 style={{ fontSize: 48, fontWeight: 'bold' }}>15 Puzzle</h1> */}
+                {/* <p>{moves} moves</p> */}
 
-            <StopwatchMobile2 isRunning={stopwatchRunning} startAndStop={handleStartStopClick} />
+                <Pressable style={styles.shuffleButton} onPress={() => swap2()}>
+                    {/* <View style={styles.shuffleButton}> */}
+                    <Text style={styles.shuffleButtonText}>Start New Game</Text>
+                    {/* </View> */}
+                </Pressable>
 
-            <Pressable onPress={handleStartStopClick}>
-                <Text>START&STOP</Text>
-            </Pressable>
+                {winState && <Text style={{ fontSize: 36, fontWeight: 'bold', color: 'green' }}>You won!</Text>}
+                <Text>{moves} moves</Text>
 
-            <Pressable >
+                <StopwatchMobile2 isRunning={stopwatchRunning} startAndStop={handleStartStopClick} />
+
+                <Pressable onPress={handleStartStopClick}>
+                    <Text>START&STOP</Text>
+                </Pressable>
+
+
+                {/* Game field START */}
                 <View style={styles.container}>
                     {a.map((r, k1) => {
                         return (
@@ -185,55 +194,38 @@ const Game = () => {
                         )
                     })}
                 </View>
-            </Pressable>
+                {/* Game field END */}
 
-            {/* <Pressable>
-                <View style={styles.container}>
-                    <View style={styles.topRow}>
-                        <View style={[styles.button]}>{getNumberToDisplay(0, 0)} </View>
-                        <View style={[styles.button]}>{getNumberToDisplay(0, 1)} </View>
-                        <View style={[styles.button]}>{getNumberToDisplay(0, 2)} </View>
-                        <View style={[styles.button]}>{getNumberToDisplay(0, 3)} </View>
-
-                    </View>
-                    <View style={styles.middleColumn}>
-                        <View style={[styles.button]}>{getNumberToDisplay(1, 0)} </View>
-                        <View style={[styles.button]}>{getNumberToDisplay(1, 1)} </View>
-                        <View style={[styles.button]}>{getNumberToDisplay(1, 2)} </View>
-                        <View style={[styles.button]}>{getNumberToDisplay(1, 3)} </View>
-                    </View>
-                    <View style={styles.middleColumn2}>
-                        <View style={[styles.button]}>{getNumberToDisplay(2, 0)} </View>
-                        <View style={[styles.button]}>{getNumberToDisplay(2, 1)} </View>
-                        <Pressable onPress={() => swap(2, 2)}>
-                            <View style={[styles.button]}>{getNumberToDisplay(2, 2)}prova </View></Pressable>
-                        <Pressable onPress={() => swap(2, 3)}>
-                            <View style={[styles.button]}>{getNumberToDisplay(2, 3)} prova</View></Pressable>
-                    </View>
-                    <View style={styles.bottomRight}>
-                        <View style={[styles.button]}>{getNumberToDisplay(3, 0)} </View>
-                        <View style={[styles.button]}>{getNumberToDisplay(3, 1)} </View>
-                        <Pressable onPress={() => swap(3, 2)}>
-                            <View style={[styles.button]} >{getNumberToDisplay(3, 2)}prova</View></Pressable>
-                        <Pressable onPress={() => swap(3, 3)}>
-                            <View style={[styles.button]}>{getNumberToDisplay(3, 3)}prova </View></Pressable>
-                    </View>
-                </View>
-            </Pressable > */}
+            {/* </View> */}
+            </ScrollView>
         </>
     );
 };
 
 const styles = StyleSheet.create({
 
-    container: {
-        // width: 398,
-        // height: 398,
-        flex: 1,
+    container1: {
+        display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
-        margin: 40,
-        borderWidth: 8,
+        alignItems: 'center'
+    },
 
+    container: {
+        width: 340,
+        height: 340,
+        // flex: 1,
+        justifyContent: 'center',
+        margin: 20,
+        borderWidth: 8,
+        borderColor: 'red'
+    },
+
+    heading: {
+        display: 'flex',
+        // flexDirection: 'row',
+        justifyContent: 'center',
+        margin: 20,
     },
 
     topRow: {
@@ -297,14 +289,14 @@ const styles = StyleSheet.create({
     },
 
     shuffleButton: {
+        maxWidth: 200,
         backgroundColor: 'orange',
         padding: 10,
-        margin: 40,
-
+        // margin: 40,
     },
 
     shuffleButtonText: {
-        // color: 'white',
+        color: 'white',
         fontSize: 20,
     },
 

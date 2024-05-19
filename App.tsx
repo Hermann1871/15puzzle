@@ -8,6 +8,7 @@ import { RootStackParamList } from './types';
 import HomeScreen from './screens/HomeScreen';
 import APIListScreen from './screens/APIListScreen';
 import { UserDetailsScreen } from './screens/UserDetailsScreen';
+import { GameWithGesture } from './components/gameWithGesture';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -51,6 +52,11 @@ export default function App() {
         <Stack.Screen
           name="Puzzle15"
           component={Game}
+          options={{ title: 'Puzzle 15' }}
+        />
+        <Stack.Screen
+          name="Puzzle15Gesture"
+          component={GameWithGesture}
           options={{ title: 'Puzzle 15' }}
         />
         <Stack.Screen

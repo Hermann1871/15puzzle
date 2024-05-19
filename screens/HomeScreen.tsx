@@ -12,17 +12,30 @@ type HomeScreenProps = {
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   return (
     <View style={styles.container}>
+
       <Text style={styles.title}>Home Page</Text>
+
       <View style={styles.myButton}>
         <Button
           title="Vai alla lista API"
           onPress={() => navigation.navigate('APIList')}
         />
       </View>
-      <Button
-        title="Vai al gioco del 15"
-        onPress={() => navigation.navigate('Puzzle15')}
-      />
+
+      <View style={styles.myButton}>
+        <Button
+          title="Vai al gioco del 15"
+          onPress={() => navigation.navigate('Puzzle15')}
+        />
+      </View>
+
+      <View style={styles.myButton}>
+        <Button
+          title="Vai al gioco del 15 con Gesture"
+          onPress={() => navigation.navigate('Puzzle15Gesture')}
+        />
+      </View>
+
     </View>
   );
 }

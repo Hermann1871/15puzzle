@@ -11,12 +11,12 @@ type Props = {
 
 export const UserDetailsScreen = ({ route }: Props) => {
 
-    const { user } = route.params;
+  const { user } = route.params;
 
     return (
         <View>
             <Text>UserDetailScreen</Text>
-            <UserDetail user={user} ></UserDetail>
+            <UserDetail user= {user} ></UserDetail>
         </View>
 
     )
