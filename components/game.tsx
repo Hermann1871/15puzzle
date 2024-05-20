@@ -189,6 +189,7 @@ const Game = () => {
             }
         }
         setNumbersState(copy)
+        setIsImpossible(false)
     }
 
 
