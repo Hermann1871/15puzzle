@@ -36,32 +36,36 @@ const Game = () => {
     // console.log('Game Rendering')
 
     const [winState, setWinState] = useState(false)
+    const [impossibleWinState, setImpossibleWinState] = useState(false)
 
     const [moves, setMoves] = useState(0)
 
     const [NumbersState, setNumbersState] = useState(matrix);
+
+    const [stopwatchRunning, setStopwatchRunning] = useState(false);
+
+    const [isImpossible, setIsImpossible] = useState(false);
+
+    useEffect(() => {
+        console.log('useEffect Called', NumbersState)
+        if (isImpossible) {
+            startNewGame(true);
+            // setNumbersState(matrix)
+            console.log('useEffect Called IF')
+        }
+    }, [isImpossible]);
+
     const getNumberToDisplay = (r: number, c: number) => {
         return NumbersState[r][c]
     };
-
-    const [stopwatchRunning, setStopwatchRunning] = useState(false);
 
     const handleStartStopClick = () => {
         setStopwatchRunning(!stopwatchRunning);
     };
 
-    const [isImpossible, setIsImpossible] = useState(false);
-
-    useEffect(() => {
-        if (isImpossible) {
-            swap2();
-            // setNumbersState(matrix)
-        }
-    }, [isImpossible]);
-
     function impossibleSwap() {
-        setIsImpossible(true);
-        setNumbersState(impossibleMatrix)
+        setIsImpossible(!isImpossible);
+        // setNumbersState(impossibleMatrix)
         // swap2()
     }
 
@@ -124,14 +128,14 @@ const Game = () => {
 
         if (checkImpossible) {
             console.log('Impossible!')
-            // setWinState(true)
+            setImpossibleWinState(true)
             handleStartStopClick()
         }
 
         // console.log('matrix - END')
     }
 
-    function swap2() {
+    function startNewGame(impossible: boolean = false) {
 
         setWinState(false)
         setMoves(0)
@@ -143,17 +147,25 @@ const Game = () => {
         //     handleStartStopClick()
         // }
 
+        console.log("SWAP2 FUNCTION CALLED")
         console.log("NumbersState Start matrix", NumbersState)
+        console.log("SWAP 2 IMPOSSIBLE", impossible ? 'IS IMPOSSIBLE' : 'IS POSSIBLE')
+
         // const copy = NumbersState.map(subarray => [...subarray]);
 
-        let copy
-        if (isImpossible) {
-            copy = impossibleMatrix.map(subarray => [...subarray]);
-            console.log('copy start matrix - IMPOSSIBLE (print happens sometimes when function ends)', copy)
-        } else {
-            copy = matrix.map(subarray => [...subarray]);
-            console.log('copy start matrix - POSSIBLE (print happens sometimes when function ends)', copy)
-        }
+        // let copy
+        // if (isImpossible) {
+        //     copy = impossibleMatrix.map(subarray => [...subarray]);
+        //     console.log('copy start matrix - IMPOSSIBLE (print happens sometimes when function ends)', copy)
+        // } else {
+        //     copy = matrix.map(subarray => [...subarray]);
+        //     console.log('copy start matrix - POSSIBLE (print happens sometimes when function ends)', copy)
+        // }
+
+        console.log(impossible ? 'IS IMPOSSIBLE' : 'IS POSSIBLE')
+        let copy = impossible
+            ? impossibleMatrix.map(subarray => [...subarray])
+            : matrix.map(subarray => [...subarray]);
 
         // console.log('copy start matrix', copy)
         // copy.forEach(row => {
@@ -162,7 +174,7 @@ const Game = () => {
 
         let r = 0
         let c = 0
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 10; i++) { // 10000 is good enough
 
 
             let random1 = Math.floor(Math.random() * 4)
@@ -188,8 +200,11 @@ const Game = () => {
                 copy[r][c] = 0
             }
         }
+
         setNumbersState(copy)
-        setIsImpossible(false)
+
+        // setIsImpossible(false)
+
     }
 
 
@@ -206,7 +221,7 @@ const Game = () => {
                 {/* <h1 style={{ fontSize: 48, fontWeight: 'bold' }}>15 Puzzle</h1> */}
                 {/* <p>{moves} moves</p> */}
 
-                <Pressable style={styles.shuffleButton} onPress={() => swap2()}>
+                <Pressable style={styles.shuffleButton} onPress={() => startNewGame()}>
                     {/* <View style={styles.shuffleButton}> */}
                     <Text style={styles.shuffleButtonText}>Start New Game</Text>
                     {/* </View> */}
@@ -219,6 +234,7 @@ const Game = () => {
                 </Pressable>
 
                 {winState && <Text style={{ fontSize: 36, fontWeight: 'bold', color: 'green' }}>You won!</Text>}
+                {impossibleWinState && <Text style={{ fontSize: 36, fontWeight: 'bold', color: 'green' }}>Impossible to win!</Text>}
                 <Text style={{ fontSize: 24, fontWeight: '500', margin: 20 }}>{moves} moves</Text>
 
                 <StopwatchMobile2 isRunning={stopwatchRunning} startAndStop={handleStartStopClick} />
@@ -259,7 +275,6 @@ const Game = () => {
                     })}
                 </View>
                 {/* Game field END */}
-
                 {/* </View> */}
             </ScrollView>
         </>
