@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Pressable } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types';
 
@@ -15,26 +15,58 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
 
       <Text style={styles.title}>Home Page</Text>
 
-      <View style={styles.myButton}>
+      <Pressable
+        style={styles.pressable}
+        onPress={() => navigation.navigate('APIList')}
+      >
+        <Text
+          style={styles.text}
+        >Contacts API</Text>
+      </Pressable>
+
+      <Pressable
+        style={styles.pressable}
+        onPress={() => navigation.navigate('Puzzle15')}
+      >
+        <Text
+          style={styles.text}
+        >15 Puzzle</Text>
+      </Pressable>
+
+      <Pressable
+        style={styles.pressable}
+        onPress={() => navigation.navigate('Puzzle15Gesture')}
+      >
+        <Text
+          style={styles.text}
+        >15 Puzzle with Gesture</Text>
+      </Pressable>
+
+      {/* <View style={styles.myButton}>
         <Button
           title="Vai alla lista API"
           onPress={() => navigation.navigate('APIList')}
         />
-      </View>
+      </View> */}
 
-      <View style={styles.myButton}>
+      {/* <View style={styles.myButton}>
         <Button
           title="Vai al gioco del 15"
           onPress={() => navigation.navigate('Puzzle15')}
         />
-      </View>
+      </View> */}
 
-      <View style={styles.myButton}>
+            {/* <View style={styles.myButton}>
         <Button
           title="Vai al gioco del 15 con Gesture"
           onPress={() => navigation.navigate('Puzzle15Gesture')}
         />
-      </View>
+      </View> */}
+
+
+
+
+
 
     </View>
   );
@@ -52,6 +84,18 @@ const styles = StyleSheet.create({
   },
   myButton: {
     margin: 20,
+  },
+  pressable: {
+    padding: 10,
+    margin: 20,
+    // backgroundColor: 'blue',
+    backgroundColor: 'rgb(33, 150, 243)',
+    borderRadius: 3,
+  },
+  text: {
+    color: 'white',
+    fontWeight: '500',
+    textTransform: 'uppercase',
   }
 });
 

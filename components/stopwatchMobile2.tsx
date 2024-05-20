@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 
 interface StopwatchProps {
   isRunning: boolean;
@@ -30,20 +30,58 @@ const StopwatchMobile2: React.FC<StopwatchProps> = ({ isRunning, startAndStop })
   };
 
   return (
-    <View>
-      <Text>
-        {hours}:{minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}
+    <>
+      {/* // <View> */}
+      <Text style={styles.timeText}>
+        {hours.toString().padStart(2, "0")}:{minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}
       </Text>
-      <View>
-        <Pressable onPress={startAndStopButton}>
-          <Text>{isRunning ? "Stop" : "Start"}</Text>
+      <View style={styles.container}>
+        <Pressable style={styles.pressable} onPress={startAndStopButton}>
+          <Text style={styles.text}>{isRunning ? "Pause" : "Start"}</Text>
         </Pressable>
-        <Pressable onPress={reset}>
-          <Text>Reset</Text>
+        <Pressable style={styles.pressable} onPress={reset}>
+          <Text style={styles.text}>Reset</Text>
         </Pressable>
       </View>
-    </View>
+
+      {/* </View> */}
+    </>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  // title: {
+  //   fontSize: 24,
+  //   marginBottom: 20,
+  // },
+  // myButton: {
+  //   margin: 20,
+  // },
+  pressable: {
+    padding: 10,
+    margin: 20,
+    // backgroundColor: 'blue',
+    backgroundColor: 'rgb(33, 150, 243)',
+    borderRadius: 3,
+  },
+  text: {
+    color: 'white',
+    fontWeight: '500',
+    textTransform: 'uppercase',
+  },
+  timeText: {
+    // color: 'white',
+    fontSize: 24,
+    fontWeight: '500',
+    textTransform: 'uppercase',
+    // margin: 20
+  }
+});
 
 export default StopwatchMobile2;
